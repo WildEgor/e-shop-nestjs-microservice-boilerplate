@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  rabbitmq-broker:
+    hostname: rabbitmq
+    container_name: rabbitmq-broker
+    image: rabbitmq:3.9.12-management-alpine
+    ports:
+      - ${AMQP_PORT}:5672
+      - ${AMQP_MANAGEMENT_PORT}:15672
+    environment:
+      - "RABBITMQ_DEFAULT_USER=${AMQP_USERNAME}"
+      - "RABBITMQ_DEFAULT_PASS=${AMQP_PASSWORD}"
+      - "RABBITMQ_DEFAULT_VHOST='vhost'"
+    env_file:
+      - ./.env
+    healthcheck:
+      test:
+        [ "CMD", "echo", "Awaiting rabbitmq..." ]
+      interval: 10s
+      timeout: 10s
+      retries: 8
+
+  mongo-db:
+    image: 'mongo'
+    container_name: 'mongo'
+    hostname: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=${MONGODB_INIT_DB_NAME}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+    env_file:
+      - ./.env
+    ports:
+      - ${MONGODB_PORT}:27017
+    volumes:
+      # - ${MONGODB_STORAGE_LOCATION}:/data/db
+      - mongodb_data:/data/db
+
+  backend:
+    container_name: ${APP_NAME}
+    image: wildegor/nestjs-microservice-boilerplate
+    restart: always
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+      - ${GRPC_PORT}:${GRPC_PORT}
+    env_file:
+      - ./.env
+    depends_on:
+      - mongo-db
+
+volumes:
+  mongodb_data:
+    driver: local

@@ -2,14 +2,21 @@
 /dist
 /node_modules
 
+# Docker
+/docker-compose-*.yml
+
 # Logs
 logs
 *.log
 npm-debug.log*
-pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+
+# output
+dist
+*.d.ts
+*.js
 
 # OS
 .DS_Store
@@ -34,5 +41,9 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-.npmrc
+# local env files
 .env
+.env.local
+
+#
+/database

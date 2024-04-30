@@ -1,0 +1,12 @@
+node_modules
+dist
+logs
+test
+*.spec.ts
+.vscode
+.idea
+.git
+.dockerignore
+Dockerfile
+.git*
+*.md
