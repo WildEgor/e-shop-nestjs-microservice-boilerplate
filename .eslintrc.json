@@ -252,14 +252,14 @@
     "max-len": [
       "error",
       {
-        "code": 180,
+        "code": 300,
         "ignoreComments": true,
         "ignoreStrings": true
       }
     ],
     "max-lines": [
       "error",
-      800
+      1500
     ],
     "max-params": [
       "warn",
@@ -296,7 +296,12 @@
       "error"
     ],
     "no-empty-function": [
-      "error"
+      "error",
+      {
+        "allow": [
+          "constructors"
+        ]
+      }
     ],
     "no-eval": [
       "error"

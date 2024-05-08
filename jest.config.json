@@ -1,0 +1,15 @@
+{
+  "maxWorkers": 1,
+  "moduleFileExtensions": ["ts", "js"],
+  "testMatch": [
+    "<rootDir>/src/**/*.spec.ts"
+  ],
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "@src/(.*)$": "<rootDir>/src/$1",
+    "@adapters/(.*)$": "<rootDir>/src/infrastructure/adapters/$1",
+    "@shared/(.*)$": "<rootDir>/src/shared/$1"
+  }
+}
